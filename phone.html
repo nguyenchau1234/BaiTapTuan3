@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHONE</title>
+    <style>
+        .product-container {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .order-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>NHẬP THÔNG TIN</h2>
+
+    
+    <div style="display: inline-block; width: 150px;">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName">
+    </div>
+
+    <div style="display: inline-block; width: 200px; margin: 0 20px;">
+        <label for="productPicture">Product Picture:</label>
+        <input type="file" id="productPicture">
+    </div>
+
+    <div style="display: inline-block; width: 200px; margin: 0 10px;">
+        <label for="productPrice">Product Price:</label>
+        <input type="text" id="productPrice">
+    </div>
+<br>
+    <button onclick="addProduct()" class="order-button" style="transform: translateY(10px);">Add</button>
+
+    <p id="phoneHighlight" style="color:red;"> ĐIỆN THOẠI NỔI BẬT:</p>
+
+    <script>
+        function chooseFile() {
+            var fileInput = document.getElementById('productPicture');
+            alert("Chosen file: " + fileInput.files[0].name);
+        }
+
+        function addProduct() {
+            var productName = document.getElementById('productName').value;
+            var productPrice = document.getElementById('productPrice').value;
+            var productPicture = document.getElementById('productPicture').files[0];
+
+            if (productName && productPrice && productPicture) {
+                var productContainer = document.createElement('div');
+                productContainer.className = 'product-container';
+
+                productContainer.innerHTML = `
+                    <h3>${productName}</h3>
+                    <img src="${URL.createObjectURL(productPicture)}" alt="Product Image" style="max-width: 200px;">
+                    <p>Price: ${productPrice}</p>
+                    <button class="order-button">Đặt hàng</button>
+                `;
+
+                document.body.appendChild(productContainer);
+
+                document.getElementById('productName').value = '';
+                document.getElementById('productPrice').value = '';
+                document.getElementById('productPicture').value = '';
+
+                document.getElementById('phoneHighlight').style.color = 'red';
+            } else {
+                alert("Please fill in all product information and choose an image.");
+            }
+        }
+    </script>
+
+</body>
+</html>
